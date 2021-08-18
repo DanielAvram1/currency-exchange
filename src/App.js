@@ -1,8 +1,11 @@
 import logo from './logo.svg';
 import './App.scss';
 import CurrencyCard from './components/currency_card/currency_card.component';
+import AddCurrencyButton from './components/add_currency_button/add_currency_button.component'
 import Header from './components/header/header.component';
 import { createContext, useState } from 'react';
+import ModalAddCurrency from './components/modal_add_currency/modal_add_currency.component';
+
 
 const currencies = [
   {
@@ -18,7 +21,8 @@ const currencies = [
       'GBP': 0.85,
       'JPY': 128,
       'AUD': 1.61
-    }
+    },
+    added: true,
   },
   {
     countryCode: 'us',
@@ -33,7 +37,8 @@ const currencies = [
       'GBP': 0.72,
       'JPY': 109,
       'AUD': 1.37
-    }
+    },
+    added: true
   },
   {
     countryCode: 'ru',
@@ -48,7 +53,8 @@ const currencies = [
       'GBP': 0.01,
       'JPY': 1,
       'AUD': 0.01
-    }
+    },
+    added: false
   },
   {
     countryCode: 'gb',
@@ -63,7 +69,8 @@ const currencies = [
       'GBP': 1,
       'JPY': 150,
       'AUD': 1.89
-    }
+    },
+    added: false
     
   },
   {
@@ -79,7 +86,8 @@ const currencies = [
       'RUB': 1,
       'JPY': 1,
       'AUD': 0.01
-    }
+    },
+    added: false
   },
   {
     countryCode: 'au',
@@ -94,40 +102,53 @@ const currencies = [
       'JPY': 79,
       'GBP': 0.52,
       'AUD': 1
-    }
+    },
+    added: true
   },
 ]
 
-export const CurrentCurrencyContext = createContext();
+export const CurrentCurrencyContext = createContext()
+export const CurrencyListContext = createContext()
 
 function App() {
   
-  const [currentCurrency, setCurrentCurrency] = useState(currencies[0]);
+  const [currentCurrency, setCurrentCurrency] = useState(currencies[0])
+  const [currencyList, setCurrencyList] = useState(currencies)
+  const [showModal, setShowModal] = useState(false)
 
   return (
-    <div className='body'>
-      <Header />
-      <CurrentCurrencyContext.Provider value={{currentCurrency, setCurrentCurrency}}>
-        <div className='currency-grid'>
-          {currencies.map((currency) =>
-            
-          
-            <CurrencyCard 
-              countryCode = {currency.countryCode}
-              currencyAbreviation = {currency.currencyAbreviation}
-              currencyFullName = {currency.currencyFullName}
-              currencySign = {currency.currencySign}
-              value = {currency.value}
-              rate = {currency.rate}
+    <CurrencyListContext.Provider value={{currencyList, setCurrencyList}}>
+      <div className='body'>
+        <Header />
+        <CurrentCurrencyContext.Provider value={{currentCurrency, setCurrentCurrency}}>
+          <div className='currency-grid'>
+            {currencyList.filter((currency) => currency.added).map((currency) =>
               
-            />
-          )}
-        </div>
-      </CurrentCurrencyContext.Provider>
-      
-      
-    </div>
-  );
+            
+              <CurrencyCard 
+                countryCode = {currency.countryCode}
+                currencyAbreviation = {currency.currencyAbreviation}
+                currencyFullName = {currency.currencyFullName}
+                currencySign = {currency.currencySign}
+                value = {currency.value}
+                rate = {currency.rate}
+                
+              />
+            )}
+          </div>
+        </CurrentCurrencyContext.Provider>
+        <AddCurrencyButton 
+          show={!showModal}
+          onClick={()=>setShowModal(true)}
+        />
+        
+        <ModalAddCurrency 
+          show={showModal}
+          goBackFunction={() => setShowModal(false)}
+        />
+      </div>
+    </CurrencyListContext.Provider>
+  )
 }
 
-export default App;
+export default App

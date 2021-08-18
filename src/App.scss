@@ -1,9 +1,23 @@
 .body {
   text-align: center;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  
   .currency-grid {
     display: flex;
     flex-wrap: wrap;
 
   }
-}
 
+  .lime {
+    background-color: lime;
+  }
+
+  .red {
+    background-color: red;
+  }
+  
+}

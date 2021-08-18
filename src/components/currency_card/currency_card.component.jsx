@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react'
 import './currency_card.styles.scss'
-import {CurrentCurrencyContext} from '../../App'
+import {CurrencyListContext, CurrentCurrencyContext} from '../../App'
 
 const CurrencyCard = (
     {
@@ -13,6 +13,7 @@ const CurrencyCard = (
 ) => 
 {
     const {currentCurrency, setCurrentCurrency} = useContext(CurrentCurrencyContext)
+    const {currencyList, setCurrencyList} = useContext(CurrencyListContext)
     const [value, setValue] = useState(currentCurrency.value)
     console.log(currentCurrency.value)
     return( 
@@ -41,7 +42,16 @@ const CurrencyCard = (
         >
             <div className='button-container'>
 
-                <button>X</button>
+                <button
+                    onClick={ () =>
+                        setCurrencyList(currencyList.map((curr) => {
+                            if(curr.currencyAbreviation == currencyAbreviation){
+                                return {...curr, added: false}
+                            }
+                            return curr
+                        }))
+                    }
+                >X</button>
             </div>
             <div className='row'>
                 <div className='col-30'>
