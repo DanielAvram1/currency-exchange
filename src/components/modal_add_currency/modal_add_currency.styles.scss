@@ -4,8 +4,20 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-y: scroll;
+}
+
+.modal-content {
+    margin-bottom: 100px;
+    align-self: flex-start;
+}
+
+@media all and (max-width: 500px) {
+    .modal-content {
+        width: 100%;
+    }
 }

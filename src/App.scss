@@ -5,19 +5,21 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  width: 100%;
   
   .currency-grid {
+
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 150px;
 
   }
+}
 
-  .lime {
-    background-color: lime;
+@media all and (max-width: 500px) {
+  .currency-grid {
+    flex-direction: column;
+    padding: 0px;
   }
-
-  .red {
-    background-color: red;
-  }
-  
 }

@@ -1,10 +1,31 @@
 .add-currency {
-    position: fixed;
-    z-index: 2;
-    bottom: 30px;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 30px;
-    font-size: 30px;
-    color: white;
+  position: fixed;
+  z-index: 2;
+  bottom: 30px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  box-shadow: 5px 5px 10px grey;
+  
+  
+  font-size: 30px;
+  color: white;
+}
+
+
+.lime {
+  background-color: lime;
+}
+
+.red {
+  background-color: red;
+}
+
+  @media all and(max-width: 500px) {
+    .add-currency {
+      width: 100%;
+      bottom: 0;
+    }
   }

@@ -14,7 +14,17 @@ const CurrencyCard = (
 {
     const {currentCurrency, setCurrentCurrency} = useContext(CurrentCurrencyContext)
     const {currencyList, setCurrencyList} = useContext(CurrencyListContext)
-    const [value, setValue] = useState(currentCurrency.value)
+
+    const getValue = ()=> {
+        const val = parseInt((currentCurrency.value / rate[currentCurrency.currencyAbreviation]), 10)
+        if(currentCurrency.currencyAbreviation === currencyAbreviation){
+            return val
+        }
+        else {
+            return val.toFixed(2)
+        }
+    }
+
     console.log(currentCurrency.value)
     return( 
         <div 
@@ -26,16 +36,17 @@ const CurrencyCard = (
                 ''
             }`}
             onClick = {() => {
+                const newValue = parseInt((currentCurrency.value / rate[currentCurrency.currencyAbreviation]), 10).toFixed(2)
                 setCurrentCurrency({
                     ...currentCurrency,
                     countryCode: countryCode, 
                     currencySign: currencySign, 
                     currencyAbreviation: currencyAbreviation, 
                     currencyFullName: currencyFullName,
+                    value: newValue,
+                    rate: rate
                     
-                })
-                setValue(currentCurrency.value)
-                }      
+                })}      
                 
             }
             
@@ -62,15 +73,14 @@ const CurrencyCard = (
                 <div className='col-70'>
                     <input 
                         type='number' 
-                        value= {currentCurrency.value * rate[currentCurrency.currencyAbreviation]}  
+                        value={getValue()}  
                         
                         onChange = {(event) => {
                             console.log(event.target.value)
                             setCurrentCurrency({
                                 ...currentCurrency,
-                                value: event.target.value
+                                value: parseInt(event.target.value, 10)
                             })
-                            setValue(event.target.value)
                         }}
                     />
                 </div>

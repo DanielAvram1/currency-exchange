@@ -105,6 +105,7 @@ const currencies = [
     },
     added: true
   },
+  
 ]
 
 export const CurrentCurrencyContext = createContext()
@@ -140,6 +141,7 @@ function App() {
         <AddCurrencyButton 
           show={!showModal}
           onClick={()=>setShowModal(true)}
+          lime
         />
         
         <ModalAddCurrency 

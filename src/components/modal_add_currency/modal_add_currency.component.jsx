@@ -32,6 +32,7 @@ const ModalAddCurrency = ({show, goBackFunction })=> {
             </div>
             <AddCurrencyButton 
                 show={true}
+                red
                 onClick={() => {
                     const newCurrencyList = currencyList.map((curr) => {
                         if(chosenCurrencies.includes(curr.currencyAbreviation)) {
