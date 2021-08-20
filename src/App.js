@@ -54,6 +54,7 @@ const App = () => {
   // gets to the paid plan, it's not hard to refactor the code to work properly. Mainly, the changes
   // must be made only to the updateCurrencyList function.
   useEffect(() => {
+    document.title = "Currency Exchange"
     updateCurrencyList(currencyList, setCurrencyList)
   }, [])
 
