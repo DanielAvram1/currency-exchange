@@ -1,19 +1,22 @@
 
 import Header from '../header/header.component'
 import CurrencyCard from '../currency_card/currency_card.component'
-import {CurrentCurrencyContext, CurrencyListContext} from '../../App'
-import { useContext, useEffect, useState } from 'react'
+import { CurrencyListContext} from '../../App'
+import { useContext, useEffect, useState, createContext } from 'react'
 import './main.styles.scss'
 
+// the context for storing the Base Currency- the one that was clicked
+export const CurrentCurrencyContext = createContext(null)
+
+// the component that contains the header and the currency grid
 const Main = () => {
 
+    // the need in the currencyList from its context is for setting the first 
+    // currentCurrency, being by default the first element.
     const {currencyList, setCurrencyList} = useContext(CurrencyListContext)
     const [currentCurrency, setCurrentCurrency] = useState({...currencyList[0], value: 0})
     
-    
-    //console.log(currencyList)
     useEffect(() => {
-        console.log(currencyList[0])
         setCurrentCurrency(currencyList[0])
     }, [])
 
@@ -25,7 +28,9 @@ const Main = () => {
                 {currencyList.filter((currency) => currency.added).map((currency) =>
                 
                 
-                <CurrencyCard 
+                <CurrencyCard
+                    key = {currency.currencyAbreviation}
+                    
                     countryCode = {currency.countryCode}
                     currencyAbreviation = {currency.currencyAbreviation}
                     currencyFullName = {currency.currencyFullName}

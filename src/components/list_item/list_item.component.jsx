@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './list_item.styles.scss'
 
+// just the component that represents a list item in the modal
 const ListItem = ({
     countryCode,
     currencyAbreviation,
@@ -8,6 +9,7 @@ const ListItem = ({
     chosenCurrencies,
     setChosenCurrencies
 })=> {
+    // the state that stores if the list item is chosen or not 
     const [isChosen, setIsChosen] = useState(false)
     return (
         <div className={`list-item ${

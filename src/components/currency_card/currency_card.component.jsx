@@ -1,7 +1,10 @@
 import {useContext, useEffect, useState} from 'react'
 import './currency_card.styles.scss'
-import {CurrencyListContext, CurrentCurrencyContext} from '../../App'
+import {CurrencyListContext} from '../../App'
+import {CurrentCurrencyContext} from '../main/main.component'
 
+// the component which represent the card with the info about
+// the currency and the input field.
 const CurrencyCard = (
     {
         countryCode, 
@@ -11,18 +14,30 @@ const CurrencyCard = (
         rate
     }
 ) => 
-{
+{  
+    // we need the currentCurrency in every card in order to update respectively
+    // the exchange rate with the Base currency and to update the input value
     const {currentCurrency, setCurrentCurrency} = useContext(CurrentCurrencyContext)
+    // the currencyList also contains the value inside the inputs of every cards,
+    // so we need the access to it in every card in order to update it in case we change
+    // the input in the Base Currency and after that we click on other card and change
+    // the Base currency.
     const {currencyList, setCurrencyList} = useContext(CurrencyListContext)
+    // yet we need a separate value state, 'cause the input of the Base Currency 
+    // behaves differently than the other inputs.
     const [value, setValue] = useState(0)
-
+    // the function that return the value of the input differently if the currency is base
+    // or not.
     const getValue = ()=> {
-        const val = (currentCurrency.value * currentCurrency.rate[currencyAbreviation])
+        
         if(currentCurrency.currencyAbreviation === currencyAbreviation){
-            console.log(value)
+            // if we are in the Base Currency, we display the value as it is
             return value
         }
         else {
+            // if we are not in the base, we calculate the value using the base currency rate
+            const val = (currentCurrency.value * currentCurrency.rate[currencyAbreviation])
+            // and display it only with 2 digits
             return val.toFixed(2)
         }
     }
@@ -36,6 +51,8 @@ const CurrencyCard = (
                 :
                 ''
             }`}
+            // if we click on the card, the base currency is changed, 
+            // so we set a new currentCurrency but we keep the value from the input field
             onClick = {() => {
                 const newValue = (currentCurrency.value * currentCurrency.rate[currencyAbreviation])
                 setCurrentCurrency({
@@ -48,6 +65,7 @@ const CurrencyCard = (
                     rate: rate
                     
                 })
+                // we don't forget to truncate it to only 2 zecimals
                 setValue(newValue.toFixed(2))
             }
                 
@@ -56,7 +74,8 @@ const CurrencyCard = (
             
         >
             <div className='button-container'>
-
+                {/* the X button that set the flag "added" to false,
+                    which eliminates the card from the Main. */}
                 <button
                     onClick={ () =>
                         setCurrencyList(currencyList.map((curr) => {
@@ -78,7 +97,8 @@ const CurrencyCard = (
                     <input 
                         type='number' 
                         value={getValue()}  
-                        
+                        // on every change of the input, we set the currentCurrency to a new value, which
+                        // triggers the rerendering of all the other cards and their input values.
                         onChange = {(event) => {
                             setCurrentCurrency({
                                 ...currentCurrency,
