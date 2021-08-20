@@ -1,7 +1,7 @@
 # You can see the app here
 https://danielavram1.github.io/currency-exchange/
 
-I am not totally sure if github runs the app only as a static application, but it's more than enough to see how the app's UI and logic works.
+I am not totally sure if github runs the app only as a static application, but it's more than enough to see how the app's UI and logic work.
 
 
 
