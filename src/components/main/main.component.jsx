@@ -22,15 +22,18 @@ const Main = () => {
 
     return (
         <div className='main'>
+            {/* the header */}
             <Header />
+            {/* the grid with the currency cards.
+                They all share the info of which currency is currenlty
+                the base currency, that's why the grid is wrapped in the context. */}
             <CurrentCurrencyContext.Provider value={{currentCurrency, setCurrentCurrency}}>
             <div className='currency-grid'>
                 {currencyList.filter((currency) => currency.added).map((currency) =>
                 
-                
                 <CurrencyCard
                     key = {currency.currencyAbreviation}
-                    
+
                     countryCode = {currency.countryCode}
                     currencyAbreviation = {currency.currencyAbreviation}
                     currencyFullName = {currency.currencyFullName}
