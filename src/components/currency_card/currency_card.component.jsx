@@ -14,18 +14,19 @@ const CurrencyCard = (
 {
     const {currentCurrency, setCurrentCurrency} = useContext(CurrentCurrencyContext)
     const {currencyList, setCurrencyList} = useContext(CurrencyListContext)
+    const [value, setValue] = useState(0)
 
     const getValue = ()=> {
-        const val = parseInt((currentCurrency.value / rate[currentCurrency.currencyAbreviation]), 10)
+        const val = (currentCurrency.value * currentCurrency.rate[currencyAbreviation])
         if(currentCurrency.currencyAbreviation === currencyAbreviation){
-            return val
+            console.log(value)
+            return value
         }
         else {
             return val.toFixed(2)
         }
     }
 
-    console.log(currentCurrency.value)
     return( 
         <div 
             className={`card ${
@@ -36,7 +37,7 @@ const CurrencyCard = (
                 ''
             }`}
             onClick = {() => {
-                const newValue = parseInt((currentCurrency.value / rate[currentCurrency.currencyAbreviation]), 10).toFixed(2)
+                const newValue = (currentCurrency.value * currentCurrency.rate[currencyAbreviation])
                 setCurrentCurrency({
                     ...currentCurrency,
                     countryCode: countryCode, 
@@ -46,7 +47,10 @@ const CurrencyCard = (
                     value: newValue,
                     rate: rate
                     
-                })}      
+                })
+                setValue(newValue.toFixed(2))
+            }
+                
                 
             }
             
@@ -76,11 +80,11 @@ const CurrencyCard = (
                         value={getValue()}  
                         
                         onChange = {(event) => {
-                            console.log(event.target.value)
                             setCurrentCurrency({
                                 ...currentCurrency,
-                                value: parseInt(event.target.value, 10)
+                                value: event.target.value
                             })
+                            setValue(event.target.value)
                         }}
                     />
                 </div>
@@ -94,7 +98,7 @@ const CurrencyCard = (
                     {currencyAbreviation} - {currencyFullName}
                     </span>
                     <span>
-                        1 {currentCurrency.currencyAbreviation} = {rate[currentCurrency.currencyAbreviation]} {currencyAbreviation}
+                        1 {currentCurrency.currencyAbreviation} = {currentCurrency.rate[currencyAbreviation].toFixed(2)} {currencyAbreviation}
                     </span>
                 </div>
             </div>

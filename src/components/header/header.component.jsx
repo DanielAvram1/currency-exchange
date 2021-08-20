@@ -1,16 +1,24 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { CurrencyListContext, updateCurrencyList } from "../../App"
 
 const updateTime = () => {
     const date = new Date()
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} : ${date.getSeconds()}m`
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 }
 
 const Header = () => {
 
     const [date, setDate] = useState(updateTime())
+    const {currencyList, setCurrencyList} = useContext(CurrencyListContext)
 
     useEffect(() => {
         const interval = setInterval(() => {
+            const newDate = updateTime()
+            if(newDate != date){
+                setDate(newDate)
+                updateCurrencyList(currencyList, setCurrencyList)
+
+            }
             setDate(updateTime())
             console.log('tick')
         }, 1000)
