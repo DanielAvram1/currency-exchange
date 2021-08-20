@@ -11,9 +11,15 @@
     overflow-y: scroll;
 }
 
+.modal:target {
+    display: none;
+}
+
+
 .modal-content {
     margin-bottom: 100px;
     align-self: flex-start;
+    z-index: 2;
 }
 
 @media all and (max-width: 500px) {

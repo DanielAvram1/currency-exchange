@@ -17,8 +17,12 @@ const ModalAddCurrency = ({show, goBackFunction })=> {
     }
     
     return (
-        <div className='modal'>
-            <div className='modal-content'>
+        <div className='modal'
+            onClick={goBackFunction}
+        >
+            <div className='modal-content'
+                onClick={e => e.stopPropagation()}
+            >
                 <div className='currency-list'>
                     {currencyList.filter((currency) => !currency.added)
                     .map((currency) => (
