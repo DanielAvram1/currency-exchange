@@ -15,7 +15,6 @@ export const updateCurrencyList = (currencyList, setCurrencyList) => {
   fetch(apiKey)
   .then(res => res.json())
   .then(data => {
-    console.log(data)
     setCurrencyList(currencyList.map((curr) => {
       // if the currency is Euro, then the data from API contains the rates for it.
       if(curr.currencyAbreviation === 'EUR'){

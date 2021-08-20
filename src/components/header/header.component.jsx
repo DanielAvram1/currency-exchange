@@ -25,7 +25,6 @@ const Header = () => {
                 updateCurrencyList(currencyList, setCurrencyList)
             }
             setDate(newDate)
-            console.log('tick')
         }, 1000)
         // the callback when the component is unmounted which will clear the interval
         return () => clearInterval(interval)
